@@ -3,9 +3,29 @@ const path = require('path')
 const app = express()
 const {bots, playerRecord} = require('./data')
 const {shuffleArray} = require('./utils')
+var Rollbar = require('rollbar')
+var rollbar = new Rollbar({
+  accessToken: 'ea76aa46bfea4ac19fa540cee841f6bc',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+})
+rollbar.log('Hello world!')
+rollbar.log("One love, one blood. One life, you got to do what you should. One life with each other. Sisters, brothers. One life, but we're not the same. We get to carry each other, carry each other. One. One")
+rollbar.log("Two hearts beat as one. Disguise your mind and feel the hum. This drone, the buzz of our love.")
+rollbar.log("And the three men I admire most. The Father, Son and the Holy Ghost. They caught the last train for the coast. The day the music died.")
+rollbar.log("Four'll love you so much, but do me a favor, baby don't reply. Because I can dish it out, but I can't take it.")
 
 app.use(express.json())
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'))
+})
+app.get('/styles', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.css'))
+})
+app.get('/js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.js'))
+})
 app.get('/api/robots', (req, res) => {
     try {
         res.status(200).send(botsArr)
